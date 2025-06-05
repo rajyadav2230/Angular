@@ -5,12 +5,13 @@ phases:
     runtime-versions:
       java: corretto17
     commands:
-      - echo Installing Maven...
-      - yum install -y maven
+      - echo "Installing Maven..."
+      - apt update && apt install -y maven
+      - mvn -v
   build:
     commands:
-      - echo Building the project...
-      - mvn clean package -DskipTests
+      - echo "Building Spring Boot project..."
+      - mvn package -DskipTests
 artifacts:
   files:
     - target/*.jar
