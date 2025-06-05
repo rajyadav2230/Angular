@@ -1,13 +1,13 @@
 #!/bin/bash
 echo "Running BeforeInstall Script"
 
-# Stop any running backend app
+# Stop existing app
 APP_PID=$(pgrep -f backend.jar)
 if [ -n "$APP_PID" ]; then
-  echo "Stopping existing application with PID: $APP_PID"
+  echo "Stopping running app with PID $APP_PID"
   kill -9 $APP_PID
 fi
 
-# Clean previous app directory
-rm -rf /home/ec2-user/backend-app
-mkdir -p /home/ec2-user/backend-app
+# Clean deployment directory
+rm -rf /home/ubuntu/backend-app
+mkdir -p /home/ubuntu/backend-app
