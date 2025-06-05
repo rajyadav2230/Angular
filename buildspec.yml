@@ -4,11 +4,15 @@ phases:
   install:
     runtime-versions:
       java: corretto17
+      nodejs: 18  # Specify Node.js version
     commands:
       - echo Installing Maven...
       - yum install -y maven
       - mvn -v
-      - ls -al
+      - node -v
+      - npm -v
+      - echo Installing Node.js dependencies...
+      - npm install
   build:
     commands:
       - echo Building project with skipped tests...
