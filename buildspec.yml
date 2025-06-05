@@ -12,7 +12,6 @@ phases:
       - node -v
       - npm -v
       - echo Installing Node.js dependencies...
-      - npm install
   build:
     commands:
       - echo Building project with skipped tests...
