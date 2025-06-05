@@ -6,12 +6,14 @@ phases:
       java: corretto17
       nodejs: 18  # Specify Node.js version
     commands:
-      - echo Installing Maven...
-      - yum install -y maven
+      - echo "Installing Maven 3.8.8 manually..."
+      - wget https://downloads.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
+      - unzip apache-maven-3.8.8-bin.zip -d /opt
+      - ln -s /opt/apache-maven-3.8.8 /opt/maven
+      - export M2_HOME=/opt/maven
+      - export PATH=$M2_HOME/bin:$PATH
+      - echo "Maven version:"
       - mvn -v
-      - node -v
-      - npm -v
-      - echo Installing Node.js dependencies...
   build:
     commands:
       - echo Building project with skipped tests...
