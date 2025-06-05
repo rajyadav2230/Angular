@@ -2,17 +2,15 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto17
     commands:
-      - echo "Installing Maven manually..."
-      - apt update
-      - apt install -y wget unzip
+      - echo "Installing Maven manually for Amazon Linux..."
+      - yum update -y
+      - yum install -y wget unzip java-17-amazon-corretto-devel
       - wget https://downloads.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
       - unzip apache-maven-3.8.8-bin.zip -d /opt
       - ln -s /opt/apache-maven-3.8.8 /opt/maven
       - export M2_HOME=/opt/maven
-      - export PATH=${M2_HOME}/bin:${PATH}
+      - export PATH=$M2_HOME/bin:$PATH
       - mvn -v
   pre_build:
     commands:
@@ -20,7 +18,7 @@ phases:
       - mvn clean
   build:
     commands:
-      - echo "Packaging Spring Boot app..."
+      - echo "Building Spring Boot project..."
       - mvn package -DskipTests
   post_build:
     commands:
