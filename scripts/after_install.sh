@@ -1,13 +1,9 @@
 #!/bin/bash
-echo "Running BeforeInstall Script"
+echo "Running AfterInstall Script"
 
-# Stop any running backend app
-APP_PID=$(pgrep -f backend.jar)
-if [ -n "$APP_PID" ]; then
-  echo "Stopping existing application with PID: $APP_PID"
-  kill -9 $APP_PID
-fi
+cd /home/ec2-user/backend-app
 
-# Clean previous app directory
-rm -rf /home/ec2-user/backend-app
-mkdir -p /home/ec2-user/backend-app
+# Set permissions for backend.jar and log file
+chmod +x *.jar
+touch backend.log
+chmod 666 backend.log
