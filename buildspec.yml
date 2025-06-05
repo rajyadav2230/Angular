@@ -3,15 +3,22 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing Maven manually for Amazon Linux..."
-      - yum update -y
-      - yum install -y wget unzip java-17-amazon-corretto-devel
-      - wget https://downloads.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
-      - unzip apache-maven-3.8.8-bin.zip -d /opt
-      - ln -s /opt/apache-maven-3.8.8 /opt/maven
-      - export M2_HOME=/opt/maven
-      - export PATH=$M2_HOME/bin:$PATH
-      - mvn -v
+      install:
+  commands:
+    - echo "Fixing Google Chrome GPG key before yum update..."
+    - rpm -qa gpg-pubkey* | grep a6bc6e42 && rpm -e gpg-pubkey-a6bc6e42-*
+    - rpm --import https://dl.google.com/linux/linux_signing_key.pub
+    - yum clean all
+    - yum makecache
+    - yum update -y
+    - yum install -y wget unzip java-17-amazon-corretto-devel
+    - wget https://downloads.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
+    - unzip apache-maven-3.8.8-bin.zip -d /opt
+    - ln -s /opt/apache-maven-3.8.8 /opt/maven
+    - export M2_HOME=/opt/maven
+    - export PATH=$M2_HOME/bin:$PATH
+    - mvn -v
+
   pre_build:
     commands:
       - echo "Cleaning project..."
