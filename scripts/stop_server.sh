@@ -1,5 +1,10 @@
 #!/bin/bash
-echo "Stopping backend app..."
+echo "Running ApplicationStop Script"
 
-sudo pkill -f backend.jar || true
-
+APP_PID=$(pgrep -f backend.jar)
+if [ -n "$APP_PID" ]; then
+  echo "Stopping application with PID: $APP_PID"
+  kill -9 $APP_PID
+else
+  echo "No application process found."
+fi
